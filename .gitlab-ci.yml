@@ -19,7 +19,7 @@ build:
     - stable
   script: &build
     - export PATH=$HOME/.local/bin:$PATH
-    - stack etc/scripts/release.hs check
+    - stack install && stack test --flag stack:integration-tests
 
 manual_build:
   stage: build
