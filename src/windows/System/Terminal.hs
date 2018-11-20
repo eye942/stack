@@ -16,11 +16,12 @@ import System.Win32.Console (setConsoleCP, setConsoleOutputCP, getConsoleCP, get
 -- | Get the width, in columns, of the terminal if we can.
 getTerminalWidth :: IO (Maybe Int)
 getTerminalWidth = do
-  case size of
+  tSizeMaybe <- size
+  case tSizeMaybe of
     Nothing ->
       return Nothing
-    Just windowWidth ->
-      return . Just . width $ windowWidth
+    Just termSize ->
+      return . Just . width $ termSize
 
 -- | Set the code page for this process as necessary. Only applies to Windows.
 -- See: https://github.com/commercialhaskell/stack/issues/738
